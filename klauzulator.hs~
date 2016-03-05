@@ -22,6 +22,7 @@ n1=neg ( neg (neg (neg z1)))
 
 i12 = z1 ==> z2
 r34 = z3 <=> z4
+kr34 = odneguj( dem (klauzuluj r34) )
 
 klauzuluj::Zdanie -> Zdanie
 klauzuluj e@(Elementarne a) = e
@@ -34,10 +35,12 @@ klauzuluj (Koniunkcja a b) = klauzuluj (Negacja ( Alternatywa (Negacja (klauzulu
 klauzuluj (Alternatywa a b) = Alternatywa (klauzuluj a) (klauzuluj b)
 
 dem::Zdanie -> Zdanie
-dem (Negacja (Alternatywa a b) ) = Koniunkcja (Negacja a) (Negacja b)
+dem (Negacja (Alternatywa a b) ) = dem ( Koniunkcja (odneguj (Negacja (dem a))) (odneguj (Negacja (dem b))) )
+dem (Negacja (Koniunkcja a b) ) = dem ( Alternatywa (odneguj (Negacja (dem a))) (odneguj (Negacja (dem b))) )
 dem e@(Negacja a) = e
 dem e@(Elementarne a) = e
-dem (Alternatywa a b) = Alternatywa (dem a) (dem b)
+dem (Alternatywa a b) = Alternatywa (odneguj (dem a)) (odneguj(dem b))
+dem (Koniunkcja a b) = Koniunkcja (odneguj (dem a)) (odneguj(dem b))
 
 odneguj (Negacja (Negacja a) ) = a
 odneguj (Negacja a) = Negacja (odneguj a)

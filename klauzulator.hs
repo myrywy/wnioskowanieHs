@@ -35,10 +35,12 @@ klauzuluj (Koniunkcja a b) = klauzuluj (Negacja ( Alternatywa (Negacja (klauzulu
 klauzuluj (Alternatywa a b) = Alternatywa (klauzuluj a) (klauzuluj b)
 
 dem::Zdanie -> Zdanie
-dem (Negacja (Alternatywa a b) ) = Koniunkcja (odneguj (Negacja a)) (odneguj (Negacja b))
+dem (Negacja (Alternatywa a b) ) = dem ( Koniunkcja (odneguj (Negacja (dem a))) (odneguj (Negacja (dem b))) )
+dem (Negacja (Koniunkcja a b) ) = dem ( Alternatywa (odneguj (Negacja (dem a))) (odneguj (Negacja (dem b))) )
 dem e@(Negacja a) = e
 dem e@(Elementarne a) = e
 dem (Alternatywa a b) = Alternatywa (odneguj (dem a)) (odneguj(dem b))
+dem (Koniunkcja a b) = Koniunkcja (odneguj (dem a)) (odneguj(dem b))
 
 odneguj (Negacja (Negacja a) ) = a
 odneguj (Negacja a) = Negacja (odneguj a)
@@ -47,6 +49,7 @@ odneguj (Alternatywa a b) = Alternatywa (odneguj a) (odneguj b)
 odneguj (Koniunkcja a b) = Koniunkcja (odneguj a) (odneguj b)
 odneguj (Implikacja a b) = Implikacja (odneguj a) (odneguj b)
 odneguj (Rownowaznosc a b) = Rownowaznosc (odneguj a) (odneguj b)
+
 
 pokazStr::Zdanie -> String
 pokazStr (Rownowaznosc a b) = "( "++ pokazStr a ++"<=>"++ pokazStr b ++ " )"

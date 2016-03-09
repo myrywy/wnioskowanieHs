@@ -6,7 +6,7 @@ module Klauzulator (
 	odneguj,
 	dem,
 	pokazStr,
-	Zdanie,
+	Zdanie(..),
 	(==>),
 	(<=>),
 	(&&&),
@@ -109,6 +109,6 @@ pokazStr (Koniunkcja a b) = "( "++ pokazStr a ++" & "++ pokazStr b ++ " )"
 pokazStr (Negacja a) = "( "++ "~"++pokazStr a ++ " )"
 pokazStr (Elementarne str) = str
 
-listaKlauzul::Zdanie -> [[Zdanie]]
+doKlauzul::Zdanie -> [[Zdanie]]
 doKlauzul a = listaKlauzul ( wymnoz( odneguj( dem ( klauzuluj (a)) )) )
 

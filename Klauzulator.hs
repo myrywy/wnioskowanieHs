@@ -3,7 +3,6 @@ module Klauzulator (
 	odneguj,
 	klauzulaLista,
 	listaKlauzul,
-	odneguj,
 	dem,
 	pokazStr,
 	Zdanie(..),
@@ -21,7 +20,7 @@ data Zdanie =
 	| Koniunkcja Zdanie Zdanie
 	| Alternatywa Zdanie Zdanie
 	| Negacja Zdanie 
-	deriving (Show)
+	deriving (Show, Eq)
 
 (==>) a b = Implikacja a b
 (<=>) a b = Rownowaznosc a b
